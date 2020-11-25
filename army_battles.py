@@ -26,45 +26,6 @@ if the first army won, or False, if the second one was stronger.
 Note that army 1 has the advantage to start every fight!
 """
 
-class Warrior:
-    def __init__(self):
-        self.power = 5
-        self.life = 50
-        self.is_alive = True
-
-class Knight:
-    def __init__(self):
-        self.power = 7
-        self.life = 50
-        self.is_alive = True
-
-def fight(ally, enemy):
-    flag = 0
-    while flag == 0:
-        enemy.life -= ally.power
-        if enemy.life <= 0:
-            enemy.is_alive = False
-            break
-        ally.life -= enemy.power
-        if ally.life <= 0:
-            ally.is_alive = False
-            break
-    return True if ally.is_alive else False
-
-class Army:
-    def __init__(self):
-        self.units = []
-        pass
-
-    def add_units(self, unit, num):
-        self.units += [unit() for x in range(3)]
-
-
-class Battle:
-
-    def fight(self, allies, enemies):
-        pass
-
 if __name__ == '__main__':
     # These "asserts" using only for self-checking and not necessary for auto-testing
 
@@ -97,9 +58,3 @@ if __name__ == '__main__':
 
     army_4 = Army()
     army_4.add_units(Warrior, 30)
-
-    battle = Battle()
-
-    assert battle.fight(my_army, enemy_army) == True
-    assert battle.fight(army_3, army_4) == False
-    print("Coding complete? Let's try tests!")
