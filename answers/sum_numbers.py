@@ -22,8 +22,14 @@ sum_numbers('') == 0
 
 def sum_numbers(text: str) -> int:
     # your code here
-    return None
+    return sum([try_int(x) for x in text.split(' ')])
 
+
+def try_int(x):
+    try:
+        return int(x)
+    except:
+        return 0
 
 if __name__ == '__main__':
     print("Example:")
