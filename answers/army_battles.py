@@ -32,11 +32,10 @@ class Warrior:
         self.life = 50
         self.is_alive = True
 
-class Knight:
+class Knight(Warrior):
     def __init__(self):
+        super().__init__()
         self.power = 7
-        self.life = 50
-        self.is_alive = True
 
 def fight(ally, enemy):
     flag = 0
@@ -57,17 +56,38 @@ class Army:
         pass
 
     def add_units(self, unit, num):
-        self.units += [unit() for x in range(3)]
+        self.units += [unit() for x in range(num)]
 
 
 class Battle:
 
-    def fight(self, allies, enemies):
-        pass
+    def fight(self, allies, enemies, ally=None, enemy=None):
+        if not ally or not ally.is_alive:
+            try:
+                ally = allies.units.pop()
+            except:
+                return False
+        if not enemy or not enemy.is_alive:
+            try:
+                enemy = enemies.units.pop()
+            except:
+                return True
+        for i in range(100):
+            enemy.life -= ally.power
+            if enemy.life <= 0:
+                enemy.is_alive = False
+                break
+            ally.life -= enemy.power
+            if ally.life <= 0:
+                ally.is_alive = False
+                break
+        return self.fight(allies, enemies, ally, enemy)
+
+
+
 
 if __name__ == '__main__':
     # These "asserts" using only for self-checking and not necessary for auto-testing
-
     # fight tests
     chuck = Warrior()
     bruce = Warrior()
@@ -102,4 +122,11 @@ if __name__ == '__main__':
 
     assert battle.fight(my_army, enemy_army) == True
     assert battle.fight(army_3, army_4) == False
+
+    army_1 = Army()
+    army_2 = Army()
+    army_1.add_units(Warrior, 1)
+    army_2.add_units(Warrior, 2)
+    battle = Battle()
+    battle.fight(army_1, army_2)
     print("Coding complete? Let's try tests!")
